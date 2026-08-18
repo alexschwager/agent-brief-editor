@@ -1,4 +1,4 @@
-# agent-brief-editor
+# Agent Brief Editor
 
 [![verify](https://github.com/alexschwager/agent-brief-editor/actions/workflows/verify.yml/badge.svg)](https://github.com/alexschwager/agent-brief-editor/actions/workflows/verify.yml)
 
