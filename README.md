@@ -1,5 +1,7 @@
 # agent-brief-editor
 
+[![verify](https://github.com/alexschwager/agent-brief-editor/actions/workflows/verify.yml/badge.svg)](https://github.com/alexschwager/agent-brief-editor/actions/workflows/verify.yml)
+
 **An editor for execution briefs written for autonomous coding agents. It critiques. It never rewrites. And it ships an offline verifier that fails its own output when it breaks that promise.**
 
 ---

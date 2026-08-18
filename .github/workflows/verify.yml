@@ -1,0 +1,17 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mechanical audit (offline, stdlib, no API key)
+        run: |
+          python3 tests/verify.py brief tests/fixtures/sample-brief.md
+          python3 tests/verify.py review tests/fixtures/review-pass.md tests/fixtures/sample-brief.md
+      - name: Self-test — the verifier must reject the rewriting review
+        run: python3 tests/verify.py selftest
