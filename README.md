@@ -98,7 +98,7 @@ cd agent-brief-editor
 python3 tests/verify.py selftest
 ```
 
-Three expectations run:
+Four expectations run:
 
 1. `tests/fixtures/sample-brief.md` — a shape-conformant draft with three
    seeded judgment flaws (a slug-keyed live UPDATE with no rowcount guard, a
@@ -112,7 +112,10 @@ Three expectations run:
    quote, a skipped finding ID) — **is caught and failed on seven distinct
    checks.**
 
-Exit code 0 means all three expectations met. Then run it on your own use:
+4. The `contract` mode — the prose contract in `rules.md` still states every
+   literal the verifier enforces (the seam guard) — **passes.**
+
+Exit code 0 means all four expectations met. Then run it on your own use:
 
 ```
 python3 tests/verify.py brief  <your-draft.md>                # mechanical shape checks
