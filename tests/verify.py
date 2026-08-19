@@ -153,6 +153,25 @@ def check_review(review_path, brief_path):
                         review, re.MULTILINE))
 
 
+# ------------------------------------------------------- contract-seam guard
+# The output contract lives twice: as prose in rules.md and as the regex
+# constants this file enforces. Nothing syncs them (found by an external
+# cartography pass, 2026-08-19) — so this check pins the seam: every literal
+# the verifier keys on must still appear verbatim in rules.md. Edit the
+# contract on one side only and selftest (and CI) goes red.
+CONTRACT_LITERALS = [
+    "VERDICT:", "READY FOR SA", "NOT READY",
+    "grounded: verified", "grounded: unverified", "BE-1",
+]
+
+
+def check_contract():
+    rules = (HERE.parent / "rules.md").read_text(encoding="utf-8")
+    for lit in CONTRACT_LITERALS:
+        check(f"C1 contract literal in rules.md: {lit!r}", lit in rules,
+              "verifier enforces a token rules.md no longer states")
+
+
 # ------------------------------------------------------------------ selftest
 def run_mode(argv):
     global results
@@ -161,6 +180,8 @@ def run_mode(argv):
         check_brief(argv[1])
     elif argv[0] == "review":
         check_review(argv[1], argv[2])
+    elif argv[0] == "contract":
+        check_contract()
     else:
         raise SystemExit(f"unknown mode: {argv[0]}")
     ok = all(results)
@@ -177,6 +198,8 @@ def selftest():
          "compliant review passes the contract"),
         (["review", str(fx / "review-fail.md"), str(fx / "sample-brief.md")], False,
          "rewriting review is caught and failed"),
+        (["contract"], True,
+         "prose contract in rules.md still states every enforced literal"),
     ]
     failures = 0
     for argv, expected, label in expectations:
