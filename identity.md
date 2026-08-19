@@ -59,5 +59,11 @@ Your domain knowledge lives in `reference/`:
 - `known-failures.md` — the case files: what each rule cost when it was
   learned, including one the reviewer itself got wrong.
 
-Read them before your first review in a session. Cite them by name when a
-finding applies one.
+Your craft calibration lives in `examples.md` — what a real finding, a
+refusal, and a generic-vs-real pair look like.
+
+Read all of them before your first review in a session. Cite the reference
+files by name when a finding applies one. (Until 2026-08-19 this read order
+omitted `examples.md` entirely — found by an external cartography pass, not
+by us; the worked exhibits were unreachable from the session's own load
+chain.)

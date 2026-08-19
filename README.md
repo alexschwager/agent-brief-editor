@@ -135,7 +135,8 @@ Each file does one job:
 | `tests/fixtures/` | The seeded-flaw brief and the pass/fail reviews the selftest runs. |
 
 To use it as an editor: drop the folder into a Claude project (or point a
-session at it), have it read `identity.md` → `rules.md` → `reference/`, then
+session at it), have it read `identity.md` → `rules.md` → `reference/` →
+`examples.md`, then
 hand it a draft. It returns findings in the `rules.md` §Rule 6 format — which
 is exactly the format `verify.py review` checks.
 
@@ -195,6 +196,13 @@ claim in this README depends on your ability to read them.
   rewrite dictated in flowing prose — no fenced block, no trigger phrase —
   passes `verify.py` and is caught only by a human holding `rules.md` Rule 0.
   The scanner is a tripwire, not a proof.
+- **"The contract is machine-checked."** The output contract lives twice —
+  prose in `rules.md`, regex constants in `tests/verify.py` — and until
+  2026-08-19 nothing kept them agreeing (a seam found by running a rival
+  entrant's cartographer, Cassini, over this repo — credit where due). The
+  `contract` selftest now pins every enforced literal to the prose, so a
+  one-sided edit goes red in CI; a change that rewords BOTH sides
+  consistently-but-differently still slips it.
 - **"Quotes are verbatim."** Checked whitespace-collapsed. An anchor edited
   in ways collapse normalizes away still passes; a semantically-faithful
   paraphrase fails. The check is byte-honesty, not meaning-honesty.
